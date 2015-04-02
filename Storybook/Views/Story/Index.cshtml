@@ -1,0 +1,15 @@
+﻿@{
+    ViewBag.Title = "Stories";
+    ViewBag.StoryStyle = "color:white;";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@ViewBag.Title.</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+<div id="divStories">
+    @Html.Action("GetStories", "Story")
+</div>

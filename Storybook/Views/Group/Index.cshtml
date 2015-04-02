@@ -1,0 +1,19 @@
+﻿@model Storybook.Common.Utility.PagedList<GroupEx>
+
+@{
+    ViewBag.Title = "Groups";
+    ViewBag.GroupStyle = "color:white;";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <h2>@ViewBag.Title.</h2>
+
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    
+    <div id="divGroups">
+        @Html.Action("GetGroups", "Group")
+    </div>
+</div>

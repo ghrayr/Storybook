@@ -1,0 +1,30 @@
+﻿@if (Model != null && Model.PageCount > 0)
+{
+    var start = Model.Page - (Model.Page % 5 == 0 ? 5 : Model.Page % 5) + 1;
+    var end = start + ((Model.PageCount - start) > 5 ? 5 : (Model.PageCount - start));
+
+    <div class="pager">
+        <ul>
+            <li>
+                <a @if (Model.Page > 1) { @: onclick="return LoadPage(@(Model.Page - 1), event)"
+                   } href="javascript:void(null)">&laquo;</a>
+            </li>
+
+            @for (var i = start; i <= end; i++)
+            {
+                <li>
+                    <a @if (Model.Page == i) { @: class="active"
+                       } href="javascript:void(null)" onclick="return LoadPage('@i', event);">@i</a>
+                </li>
+            }
+
+            <li>
+                <a @if (Model.Page < Model.PageCount) { @: onclick="return LoadPage(@(Model.Page + 1), event)"
+                   } href="javascript:void(null)">&raquo;</a>
+            </li>
+            <li class="pull-right">
+                <a href="javascript:void(null)">Total: @Model.TotalRecords</a>
+            </li>
+        </ul>
+    </div>
+}

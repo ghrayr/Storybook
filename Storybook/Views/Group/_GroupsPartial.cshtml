@@ -1,0 +1,39 @@
+﻿@model Storybook.Common.Utility.PagedList<GroupEx>
+
+@{
+    Layout = "";
+}
+
+<table class="table">
+    <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Members</th>
+        <th>Stories</th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model.Data)
+    {
+        <tr>
+            <td>@Html.DisplayFor(modelItem => item.Name)</td>
+            <td>@Html.DisplayFor(modelItem => item.Description)</td>
+            <td>@Html.DisplayFor(modelItem => item.MembersCount)</td>
+            <td>@Html.DisplayFor(modelItem => item.StoriesCount)</td>
+            <td>
+                @Html.ActionLink(" ", "Edit", new { id = item.Id }, new { @class = "btn btn-xs btn-default glyphicon glyphicon-pencil", @title = "Edit" })
+                @Html.ActionLink(" ", "Details", new { id = item.Id }, new { @class = "btn btn-xs btn-default glyphicon glyphicon-list-alt", @title = "Details" })
+                
+                <button class="btn btn-xs btn-default" title="Join group" onclick="joinGroup('@Url.Action("Join", "Group")', @item.Id, @Model.Page)">
+                    <span class="glyphicon glyphicon-thumbs-up"></span>
+                </button>
+            </td>
+        </tr>
+    }
+</table>
+
+@if (Model.HasRecords)
+{
+    <div data-pager="true" data-target="#divGroups" data-url="@Url.Action("GetGroups", "Group")">
+        @Html.Partial("_PagerPartial", @Model)
+    </div>
+}

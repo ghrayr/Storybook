@@ -1,0 +1,27 @@
+﻿@model Storybook.Common.Utility.PagedList<StoryEx>
+
+@{
+    Layout = "";
+}
+
+<div class="row">
+    @foreach (var item in Model.Data)
+    {
+        <div class="col-md-4 story-card">
+            <hr />
+            <h4>@Html.DisplayFor(model => item.Title)</h4>
+
+            <p>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id })
+            </p>
+        </div>
+    }
+</div>
+
+@if (Model.HasRecords)
+{
+    <div data-pager="true" data-target="#divStories" data-url="@Url.Action("GetStories", "Story")">
+        @Html.Partial("_PagerPartial", @Model)
+    </div>
+}
