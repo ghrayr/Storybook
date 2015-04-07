@@ -1,19 +1,26 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
-using Storybook.DataModel.Models;
+
 using Storybook.Common.Extensions;
 using Storybook.Common.Utility;
 using Storybook.DAL.DBContext;
+using Storybook.DataModel.Models;
+
 
 namespace Storybook.DAL.Managers
 {
     public class StoryManager : ManagerBase
     {
+        /// <summary>
+        /// Returns paged stories posted by the given user
+        /// </summary>
+        /// <param name="userId">Identifier of the user</param>
+        /// <param name="page">Current page</param>
+        /// <param name="pageSize">Rows count in the page</param>
+        /// <returns>PagedList of StoryEx</returns>
         public static PagedList<StoryEx> GetStories(int userId, int page, int pageSize)
         {
             using (var db = new StorybookContext())
@@ -31,6 +38,12 @@ namespace Storybook.DAL.Managers
             }
         }
 
+        /// <summary>
+        /// Returns a story with the specified id asynchronously
+        /// </summary>
+        /// <param name="id">Identifier of the story</param>
+        /// <param name="includeGroupIds">Determines whether to include all joined group ids or not</param>
+        /// <returns>Task Story asynchronously</returns>
         public static async Task<Story> FindAsync(int id, bool includeGroupIds = false)
         {
             using (var db = new StorybookContext())
@@ -42,6 +55,11 @@ namespace Storybook.DAL.Managers
             }
         }
 
+        /// <summary>
+        /// Inserts or updates the story asynchronously
+        /// </summary>
+        /// <param name="story">Story to insert/update</param>
+        /// <returns>Null if success or exception</returns>
         public static async Task SaveStoryAsync(Story story)
         {
             using (var db = new StorybookContext())
@@ -112,6 +130,11 @@ namespace Storybook.DAL.Managers
             }
         }
 
+        /// <summary>
+        /// Removes the story asynchronously
+        /// </summary>
+        /// <param name="id">Identifier of the story to delete</param>
+        /// <returns>Null if success or exception</returns>
         public static async Task DeleteAsync(int id)
         {
             using (var db = new StorybookContext())

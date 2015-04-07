@@ -1,18 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
-using Storybook.DataModel.Models;
+
 using Storybook.Common.Extensions;
 using Storybook.Common.Utility;
 using Storybook.DAL.DBContext;
+using Storybook.DataModel.Models;
+
 
 namespace Storybook.DAL.Managers
 {
     public class GroupManager : ManagerBase
     {
+        /// <summary>
+        /// Returns paged groups by the given page and pageSize
+        /// </summary>
+        /// <param name="page">Current page</param>
+        /// <param name="pageSize">Rows count in the page</param>
+        /// <returns>PagedList of GroupEx</returns>
         public static PagedList<GroupEx> GetGroups(int page, int pageSize)
         {
             using (var db = new StorybookContext())
@@ -25,6 +32,10 @@ namespace Storybook.DAL.Managers
             }
         }
 
+        /// <summary>
+        /// Returns all the groups
+        /// </summary>
+        /// <returns>List of Group</returns>
         public static List<Group> GetAllGroups()
         {
             using (var db = new StorybookContext())
@@ -33,6 +44,10 @@ namespace Storybook.DAL.Managers
             }
         }
 
+        /// <summary>
+        /// Returns all the groups asynchronously
+        /// </summary>
+        /// <returns>Task List of Group</returns>
         public static async Task<List<Group>> GetAllGroupsAsync()
         {
             using (var db = new StorybookContext())
@@ -41,6 +56,11 @@ namespace Storybook.DAL.Managers
             }
         }
 
+        /// <summary>
+        /// Returns a group with the specified id asynchronously
+        /// </summary>
+        /// <param name="id">Identifier of the group</param>
+        /// <returns>Task Group asynchronously</returns>
         public static async Task<Group> FindAsync(int id)
         {
             using (var db = new StorybookContext())
@@ -49,6 +69,11 @@ namespace Storybook.DAL.Managers
             }
         }
 
+        /// <summary>
+        /// Inserts or updates the group asynchronously
+        /// </summary>
+        /// <param name="group">Group to insert/update</param>
+        /// <returns>Null if success or exception</returns>
         public static async Task SaveGroupAsync(Group group)
         {
             using (var db = new StorybookContext())
@@ -62,6 +87,11 @@ namespace Storybook.DAL.Managers
             }
         }
 
+        /// <summary>
+        /// Removes the group asynchronously
+        /// </summary>
+        /// <param name="id">Identifier of the group to delete</param>
+        /// <returns>Null if success or exception</returns>
         public static async Task DeleteAsync(int id)
         {
             using (var db = new StorybookContext())
@@ -72,6 +102,12 @@ namespace Storybook.DAL.Managers
             }
         }
 
+        /// <summary>
+        /// Joins the given user to the given group 
+        /// </summary>
+        /// <param name="groupId">Identifier of the Group</param>
+        /// <param name="userId">Identifier of the User</param>
+        /// <returns>Null if success or exception</returns>
         public static async Task JoinAsync(int groupId, int userId)
         {
             using (var db = new StorybookContext())
